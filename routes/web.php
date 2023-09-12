@@ -13,6 +13,13 @@
     | be assigned to the "web" middleware group. Make something great!
     |
     */
+    Route::middleware(['auth', 'verified'])->group(function() {
+        Route::get('/dashboard', function() {
+            return view('dashboard');
+        })->name('dashboard');
+        Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+    });
+
     Route::middleware('guest')->group(function () {
         Route::get('/', [AuthController::class, 'loginForm'])->name('login');
         Route::post('/login', [AuthController::class, 'login']);
@@ -25,4 +32,4 @@
         return view('dashboard');
     })->name('dashboard')->middleware('auth', 'verified');;
 
-    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
