@@ -2,6 +2,7 @@
 
     use Illuminate\Support\Facades\Route;
     use App\Http\Controllers\AuthController;
+    use App\Http\Controllers\EmailController;
 
     /*
     |--------------------------------------------------------------------------
@@ -17,6 +18,12 @@
         Route::get('/dashboard', function() {
             return view('dashboard');
         })->name('dashboard');
+        Route::get('/items', function() {
+            return view('items');
+        })->name('items');
+        Route::get('/logs', function() {
+            return view('logs');
+        })->name('logs');
         Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
     });
 
@@ -28,8 +35,4 @@
         Route::get('/verification/{user}/{token}', [AuthController::class, 'verification']);
     });
 
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard')->middleware('auth', 'verified');;
-
-
+    Route::get('sendmail', [EmailController::class, 'sendEmail']);

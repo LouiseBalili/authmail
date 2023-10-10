@@ -62,6 +62,7 @@ class AuthController extends Controller
         }
 
         $user->email_verified_at = now();
+        $user->remember_token = Str::random(24);
         $user->save();
 
         return redirect('/')->with('message', 'Your account has been verified.');
